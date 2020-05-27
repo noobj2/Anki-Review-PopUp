@@ -4,6 +4,7 @@
 
 
 from anki.hooks import wrap
+from anki.sound import play
 from aqt.reviewer import Reviewer
 import aqt
 from aqt import mw
@@ -12,28 +13,52 @@ import os
 from os.path import join, dirname
 import random
 addon_path = dirname(__file__)
-images = join(addon_path, 'images')
+image_folder = join(addon_path, 'images')
+audio_folder = join(addon_path, 'audio')
+config = mw.addonManager.getConfig(__name__)
 
 def myPopUp(self, ease):
-    show_random = random.choice(range(2))
+    popUp_Chance = config["Pop-Up Chance"]
+    show_random = random.choice(range((101 - popUp_Chance)))
     if show_random == 0:
-        showImage()
-def showImage():
-    title_list = ['Youre Doing Great', 'Good Job', 'Keep Going', 'You\'re the Best']
-    button_list = ['I\'m Gonna Finish Them', 'Reviews Are Easy', 'I Enjoy Doing My Reviews', 'I Love Anki', 'I\'m not Gonna let Anything Distract me', 'I\'m Gonna Stay Focused', 'just a Few Reviews left, Finishing Them is The Easiest Thing Ever']
+        play_audio = config["Play Audio"]
+        audio_list = config["Audio Names"]
+        audio_name = '/{}'.format(random.choice(audio_list))
+        audio_path = audio_folder + audio_name
+        if play_audio:
+            play(audio_path)
+        show_popUp()
+
+def show_popUp():
+    headerText_fontSize = config["Header Text Font Size"]
+    headerText_fontStyle = config["Header Text Font Style"]
+    show_header = config["Show Header"]
+    show_image = config["Show Image"]
+    image_list = config["Image Names"]
+    image_name = '/{}'.format(random.choice(image_list))
+    header_list = config["Header Texts"]
+    header_text = random.choice(header_list)
+    title_list = config["Window Titles"]
     title_text = random.choice(title_list)
+    button_list = config["Button Texts"]
     button_text = random.choice(button_list)
-    image_list = ['image1.png', 'image2.png', 'image3.png', 'image4.png', 'image5.png']
-    image_path = '/{}'.format(random.choice(image_list))
+
     window = QDialog(mw)
     window.setWindowTitle(title_text)
-    window.setWindowIcon(QIcon(images + "/icon.png"))
-    picture = QLabel()
-    picture.setText("<img src='{}' style='max-height:450px; max-width:450px;'>".format(images + image_path))
+    window.setWindowIcon(QIcon(image_folder + "/icon.png"))
+    header = QLabel()
+    header.setAlignment(Qt.AlignCenter)
+    header.setText("<div style='font-size: {}px; font-family: {};'> {} </div>".format(headerText_fontSize, headerText_fontStyle, header_text))
+    image = QLabel()
+    image.setAlignment(Qt.AlignCenter)
+    image.setText("<img src='{}' style='max-height: 450px; max-width: 450px;'>".format(image_folder + image_name))
     button = QPushButton(button_text)
     button.clicked.connect(lambda: window.hide())
     layout = QVBoxLayout()
-    layout.addWidget(picture)
+    if show_header:
+        layout.addWidget(header)
+    if show_image:
+        layout.addWidget(image)
     layout.addWidget(button)
     window.setLayout(layout)
     return window.exec_()

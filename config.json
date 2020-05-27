@@ -1,0 +1,23 @@
+{
+  "Show Header": true,
+  "Show Image": true,
+  "Play Audio": true,
+  "Pop-Up Chance": 50,
+  "Header Text Font Style": "Arial",
+  "Header Text Font Size": 16,
+  "Image Names": [
+    "image1.png", "image2.png", "image3.png", "image4.png", "image5.png"
+  ],
+  "Audio Names": [
+    "Bells in Stores.mp3", "test.wav"
+  ],
+  "Header Texts": [
+    "Header1", "Header2", "Header3"
+  ],
+  "Window Titles": [
+    "Title1", "Title2", "Title2"
+  ],
+  "Button Texts": [
+    "Button1", "Button2", "Button3"
+  ]
+}

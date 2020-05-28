@@ -2,22 +2,71 @@
   "Show Header": true,
   "Show Image": true,
   "Play Audio": true,
-  "Pop-Up Chance": 50,
+  "Show on Again": true,
+  "Show on Hard": true,
+  "Show on Good": true,
+  "Show on Easy": true,
+  "Pop-Up Chance": 100,
   "Header Text Font Style": "Arial",
   "Header Text Font Size": 16,
-  "Image Names": [
-    "image1.png", "image2.png", "image3.png", "image4.png", "image5.png"
+  "Image Names_ Again": [
+    "Shame on you.jpg", "Shame on you2.jpg", "Shame on you3.jpg", "WTF are you doing.jpg", "WTF are you doing2.jpg", "WTF are you doing3.jpg", "WTF is this.jpg"
   ],
-  "Audio Names": [
-    "Bells in Stores.mp3", "test.wav"
+  "Image Names_ Hard": [
+    "try harder.png", "try harder2.jpg", "try harder3.jpg", "try harder4.png", "try harder5.jpg"
   ],
-  "Header Texts": [
-    "Header1", "Header2", "Header3"
+  "Image Names_ Good": [
+    "youre awsome.jpg", "youre awsome2.jpg", "youre awsome3.jpg", "you can fly.jpg"
   ],
-  "Window Titles": [
-    "Title1", "Title2", "Title2"
+  "Image Names_ Easy": [
+    "good job.jpg", "good job2.jpg", "good job3.jpg", "good job4.jpg", "nice.jpg", "very nice.jpg", "very nice2.jpg"
   ],
-  "Button Texts": [
-    "Button1", "Button2", "Button3"
+  "Audio Names_ Again": [
+    "Boo 1.ogg", "Boo 2.ogg", "dont gail me again.ogg", "are you fucking stupid.ogg", "youre shit, youre so shit you dont realize what you are doing.ogg", "imma whop your ass.ogg", "no, unacceptable.ogg", "what an idiot.ogg", "you are an idiot.ogg", "you suck1.ogg", "you suck2.ogg", "youre a fucking idiot.ogg", "youre a fucking idiot 2.ogg", "youre a poopy head.ogg"
+  ],
+  "Audio Names_ Hard": [
+    "Ha Gaaaaaay.ogg", "I Dont Like Where This Is Going.ogg", "Kindly Explain This Fucking NonSense.mp3", "Losing Horn.ogg", "No God No God Please No.ogg", "Sad trombone 1.ogg", "Sad Trombone 2.ogg", "SCREAM.ogg", "What What The fuck.ogg", "When will you learn.ogg", "You stupid.ogg"
+  ],
+  "Audio Names_ Good": [
+    "Airhorn MLG.ogg", "Applause.ogg", "Nice.ogg", "Nice2.ogg"
+  ],
+  "Audio Names_ Easy": [
+    "Applause.ogg", "Keanu Reeves - Youre Breathtaking.ogg", "Wow Youre So Smart And Talented.mp3"
+  ],
+  "Header Texts_ Again": [
+    "This is a test Again header. Tools -> Review Pop-Up Settings -> Header Texts, to set your own motivational quotes.", "This is another test to show you how header text lines should be separated", "and A Motha one"
+  ],
+  "Header Texts_ Hard": [
+    "This is a test Hard header. Tools -> Review Pop-Up Settings -> Header Texts, to set your own motivational quotes.", "This is another test to show you how header text lines should be separated", "and A Motha one"
+  ],
+  "Header Texts_ Good": [
+    "This is a test Good header. Tools -> Review Pop-Up Settings -> Header Texts, to set your own motivational quotes.", "This is another test to show you how header text lines should be separated", "and A Motha one"
+  ],
+  "Header Texts_ Easy": [
+    "This is a test Easy header. Tools -> Review Pop-Up Settings -> Header Texts, to set your own motivational quotes.", "This is another test to show you how header text lines should be separated", "and A Motha one"
+  ],
+  "Window Titles_ Again": [
+    "test Again window title (Tools -> Review Pop-Up Settings -> Window Title Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
+  ],
+  "Window Titles_ Hard": [
+    "test Hard window title (Tools -> Review Pop-Up Settings -> Window Title Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
+  ],
+  "Window Titles_ Good": [
+    "test Good window title (Tools -> Review Pop-Up Settings -> Window Title Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
+  ],
+  "Window Titles_ Easy": [
+    "test Easy window title (Tools -> Review Pop-Up Settings -> Window Title Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
+  ],
+  "Button Texts_ Again": [
+    "test Again Button Text (Tools -> Review Pop-Up Settings -> Button Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
+  ],
+  "Button Texts_ Hard": [
+    "test Hard Button Text (Tools -> Review Pop-Up Settings -> Button Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
+  ],
+  "Button Texts_ Good": [
+    "test Good Button Text (Tools -> Review Pop-Up Settings -> Button Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
+  ],
+  "Button Texts_ Easy": [
+    "test Easy Button Text (Tools -> Review Pop-Up Settings -> Button Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
   ]
 }

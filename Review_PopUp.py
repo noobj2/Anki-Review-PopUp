@@ -4,7 +4,7 @@
 
 
 from anki.hooks import wrap
-from anki.sound import play
+from anki.sound import play, clearAudioQueue, AVPlayer
 from aqt.reviewer import Reviewer
 import aqt
 from aqt import mw
@@ -14,6 +14,13 @@ from os.path import join, dirname
 import random
 addon_path = dirname(__file__)
 config = mw.addonManager.getConfig(__name__)
+
+
+def _play_tags(self, tags):
+    self._enqueued = tags[:]
+    if self.interrupt_current_audio and False:
+        self._stop_if_playing()
+    self._play_next_if_idle()
 
 
 def myPopUp(self, ease):
@@ -40,6 +47,8 @@ def myPopUp(self, ease):
                 audio_name = '/{}'.format(random.choice(audio_list_easy))
             audio_path = audio_folder + audio_name
             if play_audio:
+                AVPlayer.play_tags=_play_tags
+                clearAudioQueue()
                 play(audio_path)
             show_popUp(ease)
 
@@ -117,7 +126,9 @@ def show_popUp(ease):
     show_onEasy = config["Show on Easy"]
     layout.addWidget(button)
     window.setLayout(layout)
-    if ease == 1 and show_onAgain:
+    if not show_image and not show_header:
+        return
+    elif ease == 1 and show_onAgain:
         window.exec()
     elif ease == 2 and show_onHard:
         window.exec()

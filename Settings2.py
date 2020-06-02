@@ -54,7 +54,7 @@ class Settings(QDialog):
     def settings(self):
         addon_path = dirname(__file__)
         images = join(addon_path, 'images')
-        audio = join(addon_path, 'audio')
+        audio = join(addon_path, 'audio_video')
         self.header_checkbox = QCheckBox("Header")
         self.header_checkbox.setFixedWidth(102)
         self.header_checkbox.setToolTip("""Shows a random line in \"Header Texts\" list.

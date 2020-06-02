@@ -11,7 +11,7 @@ import os
 from os.path import join, dirname
 
 def refreshConfig():
-    global C_show_header, C_show_image, C_play_audio, C_show_onAgain, C_show_onHard, C_show_onGood, C_show_onEasy, C_popUp_chance, C_headerText_fontStyle, C_headerText_fontSize, C_image_names_again, C_image_names_hard, C_image_names_good, C_image_names_easy, C_audio_names_again, C_audio_names_hard, C_audio_names_good, C_audio_names_easy, C_header_texts_again, C_header_texts_hard, C_header_texts_good, C_header_texts_easy, C_window_titles_again, C_window_titles_hard, C_window_titles_good, C_window_titles_easy, C_button_texts_again, C_button_texts_hard, C_button_texts_good, C_button_texts_easy
+    global C_show_header, C_show_image, C_play_audio, C_show_onAgain, C_show_onHard, C_show_onGood, C_show_onEasy, C_popUp_chance, C_headerText_fontStyle, C_headerText_fontSize, C_header_texts_again, C_header_texts_hard, C_header_texts_good, C_header_texts_easy, C_window_titles_again, C_window_titles_hard, C_window_titles_good, C_window_titles_easy, C_button_texts_again, C_button_texts_hard, C_button_texts_good, C_button_texts_easy
     config = mw.addonManager.getConfig(__name__)
     C_show_header = config["Show Header"]
     C_show_image = config["Show Image"]
@@ -23,14 +23,6 @@ def refreshConfig():
     C_popUp_chance = config["Pop-Up Chance"]
     C_headerText_fontStyle = config["Header Text Font Style"]
     C_headerText_fontSize = config["Header Text Font Size"]
-    C_image_names_again = config["Image Names_ Again"]
-    C_image_names_hard = config["Image Names_ Hard"]
-    C_image_names_good = config["Image Names_ Good"]
-    C_image_names_easy = config["Image Names_ Easy"]
-    C_audio_names_again = config["Audio Names_ Again"]
-    C_audio_names_hard = config["Audio Names_ Hard"]
-    C_audio_names_good = config["Audio Names_ Good"]
-    C_audio_names_easy = config["Audio Names_ Easy"]
     C_header_texts_again = config["Header Texts_ Again"]
     C_header_texts_hard = config["Header Texts_ Hard"]
     C_header_texts_good = config["Header Texts_ Good"]
@@ -71,7 +63,7 @@ class Settings(QDialog):
         self.image_checkbox.setFixedWidth(102)
         self.image_checkbox.setToolTip("""Shows a random image from images folder.
         You can add images by copying images to the \"images\" foler in add-on folder. open the folder by pressing \"Open Images Folder\" button down below.""")
-        self.audio_checkbox = QCheckBox("Audio")
+        self.audio_checkbox = QCheckBox("Audio/Video")
         self.audio_checkbox.setFixedWidth(102)
         self.audio_checkbox.setToolTip("""Plays a random audio from \"audio\" folder in add-on folder.
         You can add audio by copying them to the \"audio\" folder in add-on folder. open the folder by pressing \"Open Audio Folder\" button down below.""")
@@ -119,103 +111,8 @@ class Settings(QDialog):
         header_fontStyle_holder.addWidget(self.headerText_fontStyle)
         imagesFolder_button = QPushButton("Open Images Folder")
         imagesFolder_button.clicked.connect(lambda: os.startfile(images))
-
-        imageNames_button = QPushButton("Image Names")
-        imageNames_window = QDialog()
-        imageNames_window.setWindowIcon(QIcon(addon_path + "/images/icon.png"))
-        imageNames_window.setWindowTitle("Image Names")
-        imageNames_label = QLabel("in order for the add-on to find your images in add-on folder, you should add image name + file name extension (e.g. image.png, image.jpeg, etc.)")
-
-        image_tabs = QTabWidget()
-        self.again_imageNames_textEditor = QPlainTextEdit()
-        self.again_imageNames_textEditor.setWordWrapMode(QTextOption.NoWrap)
-        again_layout = QVBoxLayout()
-        again_layout.addWidget(self.again_imageNames_textEditor)
-        again_tab = QWidget()
-        again_tab.setLayout(again_layout)
-        image_tabs.addTab(again_tab, "Again")
-        self.hard_imageNames_textEditor = QPlainTextEdit()
-        self.hard_imageNames_textEditor.setWordWrapMode(QTextOption.NoWrap)
-        hard_layout = QVBoxLayout()
-        hard_layout.addWidget(self.hard_imageNames_textEditor)
-        hard_tab = QWidget()
-        hard_tab.setLayout(hard_layout)
-        image_tabs.addTab(hard_tab, "Hard")
-        self.good_imageNames_textEditor = QPlainTextEdit()
-        self.good_imageNames_textEditor.setWordWrapMode(QTextOption.NoWrap)
-        good_layout = QVBoxLayout()
-        good_layout.addWidget(self.good_imageNames_textEditor)
-        good_tab = QWidget()
-        good_tab.setLayout(good_layout)
-        image_tabs.addTab(good_tab, "Good")
-        self.easy_imageNames_textEditor = QPlainTextEdit()
-        self.easy_imageNames_textEditor.setWordWrapMode(QTextOption.NoWrap)
-        easy_layout = QVBoxLayout()
-        easy_layout.addWidget(self.easy_imageNames_textEditor)
-        easy_tab = QWidget()
-        easy_tab.setLayout(easy_layout)
-        image_tabs.addTab(easy_tab, "Easy")
-        images_vbox = QVBoxLayout()
-        buttons = QDialogButtonBox()
-        buttons.setStandardButtons(QDialogButtonBox.Close)
-        buttons.rejected.connect(imageNames_window.close)
-        images_vbox.addWidget(image_tabs)
-        images_vbox.addWidget(buttons)
-        imageNames_window.setLayout(images_vbox)
-
-        imageNames_button.clicked.connect(lambda: imageNames_window.exec())
-        images_holder = QHBoxLayout()
-        images_holder.addWidget(imagesFolder_button)
-        images_holder.addWidget(imageNames_button)
-        audioFolder_button = QPushButton("Open Audio Folder")
+        audioFolder_button = QPushButton("Open Audio/Video Folder")
         audioFolder_button.clicked.connect(lambda: os.startfile(audio))
-        audioNames_button = QPushButton("Audio Names")
-        audioNames_window = QDialog()
-        audioNames_window.setWindowIcon(QIcon(addon_path + "/images/icon.png"))
-        audioNames_window.setWindowTitle("Audio Names")
-        audioNames_label = QLabel("in order for the add-on to find your audio in add-on folder, you should add audio name + file name extension (e.g. audio.mp3, audio.wav, etc.)")
-
-        audio_tabs = QTabWidget()
-        self.again_audioNames_textEditor = QPlainTextEdit()
-        self.again_audioNames_textEditor.setWordWrapMode(QTextOption.NoWrap)
-        again_layout = QVBoxLayout()
-        again_layout.addWidget(self.again_audioNames_textEditor)
-        again_tab = QWidget()
-        again_tab.setLayout(again_layout)
-        audio_tabs.addTab(again_tab, "Again")
-        self.hard_audioNames_textEditor = QPlainTextEdit()
-        self.hard_audioNames_textEditor.setWordWrapMode(QTextOption.NoWrap)
-        hard_layout = QVBoxLayout()
-        hard_layout.addWidget(self.hard_audioNames_textEditor)
-        hard_tab = QWidget()
-        hard_tab.setLayout(hard_layout)
-        audio_tabs.addTab(hard_tab, "Hard")
-        self.good_audioNames_textEditor = QPlainTextEdit()
-        self.good_audioNames_textEditor.setWordWrapMode(QTextOption.NoWrap)
-        good_layout = QVBoxLayout()
-        good_layout.addWidget(self.good_audioNames_textEditor)
-        good_tab = QWidget()
-        good_tab.setLayout(good_layout)
-        audio_tabs.addTab(good_tab, "Good")
-        self.easy_audioNames_textEditor = QPlainTextEdit()
-        self.easy_audioNames_textEditor.setWordWrapMode(QTextOption.NoWrap)
-        easy_layout = QVBoxLayout()
-        easy_layout.addWidget(self.easy_audioNames_textEditor)
-        easy_tab = QWidget()
-        easy_tab.setLayout(easy_layout)
-        audio_tabs.addTab(easy_tab, "Easy")
-        audio_vbox = QVBoxLayout()
-        buttons = QDialogButtonBox()
-        buttons.setStandardButtons(QDialogButtonBox.Close)
-        buttons.rejected.connect(audioNames_window.close)
-        audio_vbox.addWidget(audio_tabs)
-        audio_vbox.addWidget(buttons)
-        audioNames_window.setLayout(audio_vbox)
-
-        audioNames_button.clicked.connect(lambda: audioNames_window.exec())
-        audio_holder = QHBoxLayout()
-        audio_holder.addWidget(audioFolder_button)
-        audio_holder.addWidget(audioNames_button)
         headerTexts_button = QPushButton("Header Texts")
         headerTexts_window = QDialog()
         headerTexts_window.setWindowIcon(QIcon(addon_path + "/images/icon.png"))
@@ -361,8 +258,8 @@ class Settings(QDialog):
         self.layout.addLayout(viewChance_holder)
         self.layout.addLayout(header_fontStyle_holder)
         self.layout.addLayout(header_fontSize_holder)
-        self.layout.addLayout(images_holder)
-        self.layout.addLayout(audio_holder)
+        self.layout.addWidget(imagesFolder_button)
+        self.layout.addWidget(audioFolder_button)
         self.layout.addWidget(headerTexts_button)
         self.layout.addWidget(windowTtitles_button)
         self.layout.addWidget(buttonTexts_button)
@@ -385,14 +282,6 @@ class Settings(QDialog):
         self.view_chance.setValue(C_popUp_chance)
         self.headerText_fontStyle.setCurrentFont(QFont(C_headerText_fontStyle))
         self.headerText_fontSize.setValue(C_headerText_fontSize)
-        self.again_imageNames_textEditor.setPlainText("{}".format("\n".join(C_image_names_again)))
-        self.hard_imageNames_textEditor.setPlainText("{}".format("\n".join(C_image_names_hard)))
-        self.good_imageNames_textEditor.setPlainText("{}".format("\n".join(C_image_names_good)))
-        self.easy_imageNames_textEditor.setPlainText("{}".format("\n".join(C_image_names_easy)))
-        self.again_audioNames_textEditor.setPlainText("{}".format("\n".join(C_audio_names_again)))
-        self.hard_audioNames_textEditor.setPlainText("{}".format("\n".join(C_audio_names_hard)))
-        self.good_audioNames_textEditor.setPlainText("{}".format("\n".join(C_audio_names_good)))
-        self.easy_audioNames_textEditor.setPlainText("{}".format("\n".join(C_audio_names_easy)))
         self.again_headerTexts_textEditor.setPlainText("{}".format("\n".join(C_header_texts_again)))
         self.hard_headerTexts_textEditor.setPlainText("{}".format("\n".join(C_header_texts_hard)))
         self.good_headerTexts_textEditor.setPlainText("{}".format("\n".join(C_header_texts_good)))
@@ -417,14 +306,6 @@ class Settings(QDialog):
         "Pop-Up Chance": self.view_chance.value(),
         "Header Text Font Style": self.headerText_fontStyle.currentFont().family(),
         "Header Text Font Size": self.headerText_fontSize.value(),
-        "Image Names_ Again": self.again_imageNames_textEditor.toPlainText().split("\n"),
-        "Image Names_ Hard": self.hard_imageNames_textEditor.toPlainText().split("\n"),
-        "Image Names_ Good": self.good_imageNames_textEditor.toPlainText().split("\n"),
-        "Image Names_ Easy": self.easy_imageNames_textEditor.toPlainText().split("\n"),
-        "Audio Names_ Again": self.again_audioNames_textEditor.toPlainText().split("\n"),
-        "Audio Names_ Hard": self.hard_audioNames_textEditor.toPlainText().split("\n"),
-        "Audio Names_ Good": self.good_audioNames_textEditor.toPlainText().split("\n"),
-        "Audio Names_ Easy": self.easy_audioNames_textEditor.toPlainText().split("\n"),
         "Header Texts_ Again": self.again_headerTexts_textEditor.toPlainText().split("\n"),
         "Header Texts_ Hard": self.hard_headerTexts_textEditor.toPlainText().split("\n"),
         "Header Texts_ Good": self.good_headerTexts_textEditor.toPlainText().split("\n"),

@@ -9,30 +9,6 @@
   "Pop-Up Chance": 100,
   "Header Text Font Style": "Arial",
   "Header Text Font Size": 16,
-  "Image Names_ Again": [
-    "Shame on you.jpg", "Shame on you2.jpg", "Shame on you3.jpg", "WTF are you doing.jpg", "WTF are you doing2.jpg", "WTF are you doing3.jpg", "WTF is this.jpg"
-  ],
-  "Image Names_ Hard": [
-    "try harder.png", "try harder2.jpg", "try harder3.jpg", "try harder4.png", "try harder5.jpg"
-  ],
-  "Image Names_ Good": [
-    "youre awsome.jpg", "youre awsome2.jpg", "youre awsome3.jpg", "you can fly.jpg"
-  ],
-  "Image Names_ Easy": [
-    "good job.jpg", "good job2.jpg", "good job3.jpg", "good job4.jpg", "nice.jpg", "very nice.jpg", "very nice2.jpg"
-  ],
-  "Audio Names_ Again": [
-    "no, unacceptable.ogg"
-  ],
-  "Audio Names_ Hard": [
-    "I Dont Like Where This Is Going.ogg", "Losing Horn.ogg", "No God No God Please No.ogg", "Sad trombone 1.ogg", "Sad Trombone 2.ogg", "SCREAM.ogg"
-  ],
-  "Audio Names_ Good": [
-    "Applause.ogg", "Nice.ogg", "Nice2.ogg"
-  ],
-  "Audio Names_ Easy": [
-    "Applause.ogg", "Keanu Reeves - Youre Breathtaking.ogg", "Wow Youre So Smart And Talented.mp3"
-  ],
   "Header Texts_ Again": [
     "This is a test Again header. Tools -> Review Pop-Up Settings -> Header Texts, to set your own motivational quotes.", "This is another test to show you how header text lines should be separated", "and A Motha one"
   ],

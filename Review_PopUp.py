@@ -28,23 +28,18 @@ def myPopUp(self, ease):
     show_random = random.choice(range((101 - popUp_Chance)))
     if show_random == 0:
         play_audio = config["Play Audio"]
-        audio_list_again = config["Audio Names_ Again"]
-        audio_list_hard = config["Audio Names_ Hard"]
-        audio_list_good = config["Audio Names_ Good"]
-        audio_list_easy = config["Audio Names_ Easy"]
         if self.state == "answer":
             if ease == 1:
-                audio_folder = join(addon_path, 'audio', 'again')
-                audio_name = '/{}'.format(random.choice(audio_list_again))
+                folder = 'again'
             elif ease == 2:
-                audio_folder = join(addon_path, 'audio', 'hard')
-                audio_name = '/{}'.format(random.choice(audio_list_hard))
+                folder = 'hard'
             elif ease == 3:
-                audio_folder = join(addon_path, 'audio', 'good')
-                audio_name = '/{}'.format(random.choice(audio_list_good))
-            elif ease == 4:
-                audio_folder = join(addon_path, 'audio', 'easy')
-                audio_name = '/{}'.format(random.choice(audio_list_easy))
+                folder = 'good'
+            else:
+                folder = 'easy'
+            audio_folder = join(addon_path, 'audio_video', folder)
+            audioName_list = os.listdir(audio_folder)
+            audio_name = '/{}'.format(random.choice(audioName_list))
             audio_path = audio_folder + audio_name
             if play_audio:
                 AVPlayer.play_tags=_play_tags
@@ -57,10 +52,6 @@ def show_popUp(ease):
     headerText_fontStyle = config["Header Text Font Style"]
     show_header = config["Show Header"]
     show_image = config["Show Image"]
-    image_list_again = config["Image Names_ Again"]
-    image_list_hard = config["Image Names_ Hard"]
-    image_list_good = config["Image Names_ Good"]
-    image_list_easy = config["Image Names_ Easy"]
     header_list_again = config["Header Texts_ Again"]
     header_list_hard = config["Header Texts_ Hard"]
     header_list_good = config["Header Texts_ Good"]
@@ -74,35 +65,33 @@ def show_popUp(ease):
     button_list_good = config["Button Texts_ Good"]
     button_list_easy = config["Button Texts_ Easy"]
     if ease == 1:
-        image_folder = join(addon_path, 'images', 'again')
-        image_name = '/{}'.format(random.choice(image_list_again))
+        folder = 'again'
         header_text = random.choice(header_list_again)
         title_text = random.choice(title_list_again)
         button_text = random.choice(button_list_again)
     elif ease == 2:
-        image_folder = join(addon_path, 'images', 'hard')
-        image_name = '/{}'.format(random.choice(image_list_hard))
+        folder = 'hard'
         header_text = random.choice(header_list_hard)
         title_text = random.choice(title_list_hard)
         button_text = random.choice(button_list_hard)
     elif ease == 3:
-        image_folder = join(addon_path, 'images', 'good')
-        image_name = '/{}'.format(random.choice(image_list_good))
+        folder = 'good'
         header_text = random.choice(header_list_good)
         title_text = random.choice(title_list_good)
         button_text = random.choice(button_list_good)
     elif ease == 4:
-        image_folder = join(addon_path, 'images', 'easy')
-        image_name = '/{}'.format(random.choice(image_list_easy))
+        folder = 'easy'
         header_text = random.choice(header_list_easy)
         title_text = random.choice(title_list_easy)
         button_text = random.choice(button_list_easy)
     else:
-        image_folder = join(addon_path, 'images', 'again')
-        image_name = '/{}'.format(random.choice(image_list_again))
+        folder = 'again'
         header_text = "Wrong Ease?"
         title_text = "Wrong Ease."
         button_text = "Ok"
+    image_folder = join(addon_path, 'images', folder)
+    imageName_list = os.listdir(image_folder)
+    image_name = '/{}'.format(random.choice(imageName_list))
 
     window = QDialog(mw)
     window.setWindowTitle(title_text)

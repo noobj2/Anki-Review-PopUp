@@ -49,12 +49,12 @@ class Settings(QDialog):
         self.setFixedWidth(450)
         self.setLayout(self.layout)
         self.setWindowTitle("Review Pop-Up Settings")
-        self.setWindowIcon(QIcon(addon_path + "/images/icon.png"))
+        self.setWindowIcon(QIcon(addon_path + "/icon.png"))
 
     def settings(self):
         addon_path = dirname(__file__)
-        images = join(addon_path, 'images')
-        audio = join(addon_path, 'audio_video')
+        images = join(addon_path, 'user_files/images')
+        audio = join(addon_path, 'user_files/audio_video')
         self.header_checkbox = QCheckBox("Header")
         self.header_checkbox.setFixedWidth(102)
         self.header_checkbox.setToolTip("""Shows a random line in \"Header Texts\" list.
@@ -115,7 +115,7 @@ class Settings(QDialog):
         audioFolder_button.clicked.connect(lambda: os.startfile(audio))
         headerTexts_button = QPushButton("Header Texts")
         headerTexts_window = QDialog()
-        headerTexts_window.setWindowIcon(QIcon(addon_path + "/images/icon.png"))
+        headerTexts_window.setWindowIcon(QIcon(addon_path + "/icon.png"))
         headerTexts_window.setWindowTitle("Header Texts")
 
         header_tabs = QTabWidget()
@@ -158,7 +158,7 @@ class Settings(QDialog):
         headerTexts_button.clicked.connect(lambda: headerTexts_window.exec())
         windowTtitles_button = QPushButton("Window Title Texts")
         windowTitles_window = QDialog()
-        windowTitles_window.setWindowIcon(QIcon(addon_path + "/images/icon.png"))
+        windowTitles_window.setWindowIcon(QIcon(addon_path + "/icon.png"))
         windowTitles_window.setWindowTitle("Window Title Texts")
 
         windowTitle_tabs = QTabWidget()
@@ -201,7 +201,7 @@ class Settings(QDialog):
         windowTtitles_button.clicked.connect(lambda: windowTitles_window.exec())
         buttonTexts_button = QPushButton("Button Texts")
         buttonTexts_window = QDialog()
-        buttonTexts_window.setWindowIcon(QIcon(addon_path + "/images/icon.png"))
+        buttonTexts_window.setWindowIcon(QIcon(addon_path + "/icon.png"))
         buttonTexts_window.setWindowTitle("Button Texts")
 
         button_tabs = QTabWidget()

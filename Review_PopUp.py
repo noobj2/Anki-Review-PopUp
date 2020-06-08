@@ -37,7 +37,7 @@ def myPopUp(self, ease):
                 folder = 'good'
             else:
                 folder = 'easy'
-            audio_folder = join(addon_path, 'audio_video', folder)
+            audio_folder = join(addon_path, 'user_files/audio_video', folder)
             audioName_list = os.listdir(audio_folder)
             audio_name = '/{}'.format(random.choice(audioName_list))
             audio_path = audio_folder + audio_name
@@ -89,13 +89,13 @@ def show_popUp(ease):
         header_text = "Wrong Ease?"
         title_text = "Wrong Ease."
         button_text = "Ok"
-    image_folder = join(addon_path, 'images', folder)
+    image_folder = join(addon_path, 'user_files/images', folder)
     imageName_list = os.listdir(image_folder)
     image_name = '/{}'.format(random.choice(imageName_list))
 
     window = QDialog(mw)
     window.setWindowTitle(title_text)
-    window.setWindowIcon(QIcon(join(addon_path, 'images') + "/icon.png"))
+    window.setWindowIcon(QIcon(join(addon_path, 'user_files/images') + "/icon.png"))
     header = QLabel()
     header.setAlignment(Qt.AlignCenter)
     header.setText("<div style='font-size: {}px; font-family: {};'> {} </div>".format(headerText_fontSize, headerText_fontStyle, header_text))

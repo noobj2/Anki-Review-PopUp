@@ -8,6 +8,8 @@ from aqt.utils import showInfo
 import aqt
 from aqt import mw
 import os
+import platform
+import subprocess
 from os.path import join, dirname
 
 def refreshConfig():
@@ -110,9 +112,9 @@ class Settings(QDialog):
         header_fontStyle_holder.addWidget(headerFontStyle_label)
         header_fontStyle_holder.addWidget(self.headerText_fontStyle)
         imagesFolder_button = QPushButton("Open Images Folder")
-        imagesFolder_button.clicked.connect(lambda: os.startfile(images))
+        imagesFolder_button.clicked.connect(lambda: self.open_file(images))
         audioFolder_button = QPushButton("Open Audio/Video Folder")
-        audioFolder_button.clicked.connect(lambda: os.startfile(audio))
+        audioFolder_button.clicked.connect(lambda: self.open_file(audio))
         headerTexts_button = QPushButton("Header Texts")
         headerTexts_window = QDialog()
         headerTexts_window.setWindowIcon(QIcon(addon_path + "/icon.png"))
@@ -321,6 +323,13 @@ class Settings(QDialog):
         }
         mw.addonManager.writeConfig(__name__, conf)
         refreshConfig()
+    def open_file(self, path):
+        if platform.system() == "Windows":
+            os.startfile(path)
+        elif platform.system() == "Darwin":
+            subprocess.Popen(["open", path])
+        else:
+            subprocess.Popen(["xdg-open", path])
 
 def open_settings():
     Settings2 = Settings()

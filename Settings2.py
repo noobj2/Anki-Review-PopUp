@@ -13,7 +13,7 @@ import subprocess
 from os.path import join, dirname
 
 def refreshConfig():
-    global C_show_header, C_show_image, C_play_audio, C_show_onAgain, C_show_onHard, C_show_onGood, C_show_onEasy, C_popUp_chance, C_headerText_fontStyle, C_headerText_fontSize, C_header_texts_again, C_header_texts_hard, C_header_texts_good, C_header_texts_easy, C_window_titles_again, C_window_titles_hard, C_window_titles_good, C_window_titles_easy, C_button_texts_again, C_button_texts_hard, C_button_texts_good, C_button_texts_easy
+    global C_show_header, C_show_image, C_play_audio, C_show_onAgain, C_show_onHard, C_show_onGood, C_show_onEasy, C_popUp_chance, C_SA_popUp_chance, C_headerText_fontStyle, C_headerText_fontSize, C_header_texts_SA, C_header_texts_again, C_header_texts_hard, C_header_texts_good, C_header_texts_easy, C_window_titles_SA, C_window_titles_again, C_window_titles_hard, C_window_titles_good, C_window_titles_easy, C_button_texts_SA, C_button_texts_again, C_button_texts_hard, C_button_texts_good, C_button_texts_easy
     config = mw.addonManager.getConfig(__name__)
     C_show_header = config["Show Header"]
     C_show_image = config["Show Image"]
@@ -23,16 +23,20 @@ def refreshConfig():
     C_show_onGood = config["Show on Good"]
     C_show_onEasy = config["Show on Easy"]
     C_popUp_chance = config["Pop-Up Chance"]
+    C_SA_popUp_chance = config["Pop-Up Chance"]
     C_headerText_fontStyle = config["Header Text Font Style"]
     C_headerText_fontSize = config["Header Text Font Size"]
+    C_header_texts_SA = config["Header Texts_ Show Answer"]
     C_header_texts_again = config["Header Texts_ Again"]
     C_header_texts_hard = config["Header Texts_ Hard"]
     C_header_texts_good = config["Header Texts_ Good"]
     C_header_texts_easy = config["Header Texts_ Easy"]
+    C_window_titles_SA = config["Window Titles_ Show Answer"]
     C_window_titles_again = config["Window Titles_ Again"]
     C_window_titles_hard = config["Window Titles_ Hard"]
     C_window_titles_good = config["Window Titles_ Good"]
     C_window_titles_easy = config["Window Titles_ Easy"]
+    C_button_texts_SA = config["Button Texts_ Show Answer"]
     C_button_texts_again = config["Button Texts_ Again"]
     C_button_texts_hard = config["Button Texts_ Hard"]
     C_button_texts_good = config["Button Texts_ Good"]
@@ -93,12 +97,22 @@ class Settings(QDialog):
         viewChance_holder = QHBoxLayout()
         viewChance_holder.addWidget(viewChance_label)
         viewChance_holder.addWidget(self.view_chance)
+        SA_view_chance_label = QLabel("Show Answer Pop-Up Chance")
+        SA_view_chance_label.setToolTip("Changes the posibility of pop-up window popping up on show answer.\nSet on 0 to disable.")
+        SA_view_chance_label.setFixedWidth(210)
+        self.SA_view_chance = QSpinBox()
+        self.SA_view_chance.setFixedWidth(210)
+        self.SA_view_chance.setRange(1, 100)
+        self.SA_view_chance.setSuffix("%")
+        SA_view_chance_holder = QHBoxLayout()
+        SA_view_chance_holder.addWidget(SA_view_chance_label)
+        SA_view_chance_holder.addWidget(self.SA_view_chance)
         headerTextSize_label = QLabel("Header Font Size")
         headerTextSize_label.setToolTip("Changes font size for the header text.")
         headerTextSize_label.setFixedWidth(210)
         self.headerText_fontSize = QSpinBox()
         self.headerText_fontSize.setFixedWidth(210)
-        self.headerText_fontSize.setMinimum(1)
+        self.headerText_fontSize.setMinimum(0)
         self.headerText_fontSize.setSuffix("px")
         header_fontSize_holder = QHBoxLayout()
         header_fontSize_holder.addWidget(headerTextSize_label)
@@ -121,6 +135,13 @@ class Settings(QDialog):
         headerTexts_window.setWindowTitle("Header Texts")
 
         header_tabs = QTabWidget()
+        self.SA_headerTexts_textEditor = QPlainTextEdit()
+        self.SA_headerTexts_textEditor.setWordWrapMode(QTextOption.NoWrap)
+        SA_layout = QVBoxLayout()
+        SA_layout.addWidget(self.SA_headerTexts_textEditor)
+        SA_tab = QWidget()
+        SA_tab.setLayout(SA_layout)
+        header_tabs.addTab(SA_tab, "Show Answer")
         self.again_headerTexts_textEditor = QPlainTextEdit()
         self.again_headerTexts_textEditor.setWordWrapMode(QTextOption.NoWrap)
         again_layout = QVBoxLayout()
@@ -164,6 +185,13 @@ class Settings(QDialog):
         windowTitles_window.setWindowTitle("Window Title Texts")
 
         windowTitle_tabs = QTabWidget()
+        self.SA_windowTitles_textEditor = QPlainTextEdit()
+        self.SA_windowTitles_textEditor.setWordWrapMode(QTextOption.NoWrap)
+        SA_layout = QVBoxLayout()
+        SA_layout.addWidget(self.SA_windowTitles_textEditor)
+        SA_tab = QWidget()
+        SA_tab.setLayout(SA_layout)
+        windowTitle_tabs.addTab(SA_tab, "Show Answer")
         self.again_windowTitles_textEditor = QPlainTextEdit()
         self.again_windowTitles_textEditor.setWordWrapMode(QTextOption.NoWrap)
         again_layout = QVBoxLayout()
@@ -207,6 +235,13 @@ class Settings(QDialog):
         buttonTexts_window.setWindowTitle("Button Texts")
 
         button_tabs = QTabWidget()
+        self.SA_buttonTexts_textEditor = QPlainTextEdit()
+        self.SA_buttonTexts_textEditor.setWordWrapMode(QTextOption.NoWrap)
+        SA_layout = QVBoxLayout()
+        SA_layout.addWidget(self.SA_buttonTexts_textEditor)
+        SA_tab = QWidget()
+        SA_tab.setLayout(SA_layout)
+        button_tabs.addTab(SA_tab, "Show Answer")
         self.again_buttonTexts_textEditor = QPlainTextEdit()
         self.again_buttonTexts_textEditor.setWordWrapMode(QTextOption.NoWrap)
         again_layout = QVBoxLayout()
@@ -258,6 +293,7 @@ class Settings(QDialog):
         self.layout.addLayout(line1)
         self.layout.addLayout(line2)
         self.layout.addLayout(viewChance_holder)
+        self.layout.addLayout(SA_view_chance_holder)
         self.layout.addLayout(header_fontStyle_holder)
         self.layout.addLayout(header_fontSize_holder)
         self.layout.addWidget(imagesFolder_button)
@@ -282,16 +318,20 @@ class Settings(QDialog):
         if C_show_onEasy:
             self.show_onEasy.setChecked(True)
         self.view_chance.setValue(C_popUp_chance)
+        self.SA_view_chance.setValue(C_SA_popUp_chance)
         self.headerText_fontStyle.setCurrentFont(QFont(C_headerText_fontStyle))
         self.headerText_fontSize.setValue(C_headerText_fontSize)
+        self.SA_headerTexts_textEditor.setPlainText("{}".format("\n".join(C_header_texts_SA)))
         self.again_headerTexts_textEditor.setPlainText("{}".format("\n".join(C_header_texts_again)))
         self.hard_headerTexts_textEditor.setPlainText("{}".format("\n".join(C_header_texts_hard)))
         self.good_headerTexts_textEditor.setPlainText("{}".format("\n".join(C_header_texts_good)))
         self.easy_headerTexts_textEditor.setPlainText("{}".format("\n".join(C_header_texts_easy)))
+        self.SA_windowTitles_textEditor.setPlainText("{}".format("\n".join(C_window_titles_SA)))
         self.again_windowTitles_textEditor.setPlainText("{}".format("\n".join(C_window_titles_again)))
         self.hard_windowTitles_textEditor.setPlainText("{}".format("\n".join(C_window_titles_hard)))
         self.good_windowTitles_textEditor.setPlainText("{}".format("\n".join(C_window_titles_good)))
         self.easy_windowTitles_textEditor.setPlainText("{}".format("\n".join(C_window_titles_easy)))
+        self.SA_buttonTexts_textEditor.setPlainText("{}".format("\n".join(C_button_texts_SA)))
         self.again_buttonTexts_textEditor.setPlainText("{}".format("\n".join(C_button_texts_again)))
         self.hard_buttonTexts_textEditor.setPlainText("{}".format("\n".join(C_button_texts_hard)))
         self.good_buttonTexts_textEditor.setPlainText("{}".format("\n".join(C_button_texts_good)))
@@ -306,16 +346,20 @@ class Settings(QDialog):
         "Show on Good": self.show_onGood.isChecked(),
         "Show on Easy": self.show_onEasy.isChecked(),
         "Pop-Up Chance": self.view_chance.value(),
+        "Show Answer Pop-Up Chance": self.SA_view_chance.value(),
         "Header Text Font Style": self.headerText_fontStyle.currentFont().family(),
         "Header Text Font Size": self.headerText_fontSize.value(),
+        "Header Texts_ Show Answer": self.SA_headerTexts_textEditor.toPlainText().split("\n"),
         "Header Texts_ Again": self.again_headerTexts_textEditor.toPlainText().split("\n"),
         "Header Texts_ Hard": self.hard_headerTexts_textEditor.toPlainText().split("\n"),
         "Header Texts_ Good": self.good_headerTexts_textEditor.toPlainText().split("\n"),
         "Header Texts_ Easy": self.easy_headerTexts_textEditor.toPlainText().split("\n"),
+        "Window Titles_ Show Answer": self.SA_windowTitles_textEditor.toPlainText().split("\n"),
         "Window Titles_ Again": self.again_windowTitles_textEditor.toPlainText().split("\n"),
         "Window Titles_ Hard": self.hard_windowTitles_textEditor.toPlainText().split("\n"),
         "Window Titles_ Good": self.good_windowTitles_textEditor.toPlainText().split("\n"),
         "Window Titles_ Easy": self.easy_windowTitles_textEditor.toPlainText().split("\n"),
+        "Button Texts_ Show Answer": self.SA_buttonTexts_textEditor.toPlainText().split("\n"),
         "Button Texts_ Again": self.again_buttonTexts_textEditor.toPlainText().split("\n"),
         "Button Texts_ Hard": self.hard_buttonTexts_textEditor.toPlainText().split("\n"),
         "Button Texts_ Good": self.good_buttonTexts_textEditor.toPlainText().split("\n"),

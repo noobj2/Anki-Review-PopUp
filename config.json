@@ -7,8 +7,12 @@
   "Show on Good": true,
   "Show on Easy": true,
   "Pop-Up Chance": 100,
+  "Show Answer Pop-Up Chance": 100,
   "Header Text Font Style": "Arial",
   "Header Text Font Size": 16,
+  "Header Texts_ Show Answer": [
+    "This is a test Show Answer header. Tools -> Review Pop-Up Settings -> Header Texts, to set your own motivational quotes.", "This is another test to show you how header text lines should be separated", "and A Motha one"
+  ],
   "Header Texts_ Again": [
     "This is a test Again header. Tools -> Review Pop-Up Settings -> Header Texts, to set your own motivational quotes.", "This is another test to show you how header text lines should be separated", "and A Motha one"
   ],
@@ -21,6 +25,9 @@
   "Header Texts_ Easy": [
     "This is a test Easy header. Tools -> Review Pop-Up Settings -> Header Texts, to set your own motivational quotes.", "This is another test to show you how header text lines should be separated", "and A Motha one"
   ],
+  "Window Titles_ Show Answer": [
+    "test Show Answer window title (Tools -> Review Pop-Up Settings -> Window Title Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
+  ],
   "Window Titles_ Again": [
     "test Again window title (Tools -> Review Pop-Up Settings -> Window Title Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
   ],
@@ -32,6 +39,9 @@
   ],
   "Window Titles_ Easy": [
     "test Easy window title (Tools -> Review Pop-Up Settings -> Window Title Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
+  ],
+  "Button Texts_ Show Answer": [
+    "test Show Answer Button Text (Tools -> Review Pop-Up Settings -> Button Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
   ],
   "Button Texts_ Again": [
     "test Again Button Text (Tools -> Review Pop-Up Settings -> Button Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"

@@ -23,7 +23,7 @@ def refreshConfig():
     C_show_onGood = config["Show on Good"]
     C_show_onEasy = config["Show on Easy"]
     C_popUp_chance = config["Pop-Up Chance"]
-    C_SA_popUp_chance = config["Pop-Up Chance"]
+    C_SA_popUp_chance = config["Show Answer Pop-Up Chance"]
     C_headerText_fontStyle = config["Header Text Font Style"]
     C_headerText_fontSize = config["Header Text Font Size"]
     C_header_texts_SA = config["Header Texts_ Show Answer"]

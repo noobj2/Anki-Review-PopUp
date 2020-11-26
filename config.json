@@ -7,7 +7,7 @@
   "Show on Good": true,
   "Show on Easy": true,
   "Pop-Up Chance": 100,
-  "Show Answer Pop-Up Chance": 100,
+  "Show Answer Pop-Up Chance": 0,
   "Header Text Font Style": "Arial",
   "Header Text Font Size": 16,
   "Header Texts_ Show Answer": [

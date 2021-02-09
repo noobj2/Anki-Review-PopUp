@@ -121,7 +121,10 @@ def show_popUp(cnt, ease):
             button_text = "Ok"
     image_folder = join(addon_path, 'user_files/images', folder)
     imageName_list = os.listdir(image_folder)
-    image_name = '/{}'.format(random.choice(imageName_list))
+    if imageName_list:
+        image_name = '/{}'.format(random.choice(imageName_list))
+    else:
+        image_name = False
 
     window = QDialog(mw)
     window.setWindowTitle(title_text)
@@ -131,7 +134,10 @@ def show_popUp(cnt, ease):
     header.setText("<div style='font-size: {}px; font-family: {};'> {} </div>".format(headerText_fontSize, headerText_fontStyle, header_text))
     image = QLabel()
     image.setAlignment(Qt.AlignCenter)
-    image.setText("<img src='{}' style='max-height: 450px; max-width: 450px;'>".format(image_folder + image_name))
+    if not image_name:
+        image.setText("<div style='font-size: 16px; color: red;'> No Image Found. </div>")
+    else:
+        image.setText("<img src='{}' style='max-height: 450px; max-width: 450px;'>".format(image_folder + image_name))
     button = QPushButton(button_text)
     button.clicked.connect(lambda: window.hide())
     layout = QVBoxLayout()

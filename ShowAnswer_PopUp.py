@@ -1,5 +1,5 @@
 #// auth_ Mohamad Janati
-#// Copyright (c) 2020 Mohamad Janati (freaking stupid, right? :|)
+#// Copyright (c) 2020 - 2021 Mohamad Janati (freaking stupid, right? :|)
 
 
 from anki.hooks import wrap
@@ -25,7 +25,7 @@ def _play_tags(self, tags):
 def myPopUp(self):
     SA_popUp_Chance = config["Show Answer Pop-Up Chance"]
     show_random = random.choice(range((101 - SA_popUp_Chance)))
-    if show_random == 0:
+    if show_random == 0 and SA_popUp_Chance != 0:
         play_audio = config["Play Audio"]
         # if self.state == "review":
         folder = 'show_answer'
@@ -37,8 +37,7 @@ def myPopUp(self):
             AVPlayer.play_tags=_play_tags
             clearAudioQueue()
             play(audio_path)
-        if SA_popUp_Chance != 0:
-            show_popUp()
+        show_popUp()
 
 def show_popUp():
     headerText_fontSize = config["Header Text Font Size"]

@@ -1,5 +1,5 @@
 #// auth_ Mohamad Janati
-#// Copyright (c) 2020 Mohamad Janati (freaking stupid, right? :|)
+#// Copyright (c) 2020 - 2021 Mohamad Janati (freaking stupid, right? :|)
 
 
 from anki.hooks import wrap
@@ -26,7 +26,7 @@ def myPopUp(self, ease):
     cnt = self.mw.col.sched.answerButtons(self.card)
     popUp_Chance = config["Pop-Up Chance"]
     show_random = random.choice(range((101 - popUp_Chance)))
-    if show_random == 0:
+    if show_random == 0 and popUp_Chance != 0:
         play_audio = config["Play Audio"]
         if self.state == "answer":
             if cnt == 3:
@@ -121,10 +121,7 @@ def show_popUp(cnt, ease):
             button_text = "Ok"
     image_folder = join(addon_path, 'user_files/images', folder)
     imageName_list = os.listdir(image_folder)
-    if imageName_list:
-        image_name = '/{}'.format(random.choice(imageName_list))
-    else:
-        image_name = False
+    image_name = '/{}'.format(random.choice(imageName_list))
 
     window = QDialog(mw)
     window.setWindowTitle(title_text)
@@ -134,10 +131,7 @@ def show_popUp(cnt, ease):
     header.setText("<div style='font-size: {}px; font-family: {};'> {} </div>".format(headerText_fontSize, headerText_fontStyle, header_text))
     image = QLabel()
     image.setAlignment(Qt.AlignCenter)
-    if not image_name:
-        image.setText("<div style='font-size: 16px; color: red;'> No Image Found. </div>")
-    else:
-        image.setText("<img src='{}' style='max-height: 450px; max-width: 450px;'>".format(image_folder + image_name))
+    image.setText("<img src='{}' style='max-height: 450px; max-width: 450px;'>".format(image_folder + image_name))
     button = QPushButton(button_text)
     button.clicked.connect(lambda: window.hide())
     layout = QVBoxLayout()

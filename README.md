@@ -1,5 +1,17 @@
 # Anki Review Pop-Up
 
+- [Description](#description)
+- [Installation](#installation)
+  - [Using AnkiWeb](#using-ankiweb)
+  - [Using The .ankiaddon File](#using-the-ankiaddon-file)
+  - [Directly copying the add-on to Anki's add-ons folder](#directly-copying-the-add-on-to-ankis-add-ons-folder)
+- [Usage](#usage)
+  - [General Options](#general-options)
+  - [Changing Images and Audio/Video](#changing-images-and-audiovideo)
+  - [Changing Pop-Up Texts](#changing-pop-up-texts)
+- [Support](#support)
+- [Contribution](#contribution)
+
 ## Description
 
 This Anki add-on allows users to display pop-up messages when answering flashcards. The pop-ups can contain images, audio, and text, and can be motivational. Users have the option to enable or disable each feature, such as audio, title, and image. The messages and images displayed in the pop-ups are randomly chosen from a list for each button (again, hard, good, and easy).

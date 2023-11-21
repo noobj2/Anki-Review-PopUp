@@ -1,5 +1,5 @@
-#// auth_ Mohamad Janati
-#// Copyright (c) 2020 - 2021 Mohamad Janati (freaking stupid, right? :|)
+#// auth_ Mamad
+#// Copyright (c) 2020 - 2023 Mamad
 
 
 from anki.hooks import wrap

@@ -1,11 +1,11 @@
-#// auth_ Mohamad Janati
-#// Copyright (c) 2020 - 2021 Mohamad Janati (freaking stupid, right? :|)
+#// auth_ Mamad
+#// Copyright (c) 2020 - 2023 Mamad
 
 
 from anki.hooks import wrap
 from anki.sound import play, clearAudioQueue, AVPlayer
 from aqt.reviewer import Reviewer
-import aqt
+from aqt.utils import showInfo
 from aqt import mw, gui_hooks
 from aqt.qt import *
 import os
@@ -127,10 +127,10 @@ def show_popUp(cnt, ease):
     window.setWindowTitle(title_text)
     window.setWindowIcon(QIcon(join(addon_path, 'user_files/images') + "/icon.png"))
     header = QLabel()
-    header.setAlignment(Qt.AlignCenter)
+    header.setAlignment(Qt.AlignmentFlag.AlignCenter)
     header.setText("<div style='font-size: {}px; font-family: {};'> {} </div>".format(headerText_fontSize, headerText_fontStyle, header_text))
     image = QLabel()
-    image.setAlignment(Qt.AlignCenter)
+    image.setAlignment(Qt.AlignmentFlag.AlignCenter)
     image.setText("<img src='{}' style='max-height: 450px; max-width: 450px;'>".format(image_folder + image_name))
     button = QPushButton(button_text)
     button.clicked.connect(lambda: window.hide())

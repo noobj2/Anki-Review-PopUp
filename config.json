@@ -11,48 +11,68 @@
   "Header Text Font Style": "Arial",
   "Header Text Font Size": 16,
   "Header Texts_ Show Answer": [
-    "This is a test Show Answer header. Tools -> Review Pop-Up Settings -> Header Texts, to set your own motivational quotes.", "This is another test to show you how header text lines should be separated", "and A Motha one"
+    "This is a test Show Answer header. Tools -> Review Pop-Up Settings -> Header Texts, to set your own motivational quotes.",
+    "This is another test to show you how header text lines should be separated",
+    "and another one"
   ],
   "Header Texts_ Again": [
-    "This is a test Again header. Tools -> Review Pop-Up Settings -> Header Texts, to set your own motivational quotes.", "This is another test to show you how header text lines should be separated", "and A Motha one"
+    "This is a test Again header. Tools -> Review Pop-Up Settings -> Header Texts, to set your own motivational quotes.",
+    "This is another test to show you how header text lines should be separated",
+    "and another one"
   ],
   "Header Texts_ Hard": [
-    "This is a test Hard header. Tools -> Review Pop-Up Settings -> Header Texts, to set your own motivational quotes.", "This is another test to show you how header text lines should be separated", "and A Motha one"
+    "This is a test Hard header. Tools -> Review Pop-Up Settings -> Header Texts, to set your own motivational quotes.",
+    "This is another test to show you how header text lines should be separated",
+    "and another one"
   ],
   "Header Texts_ Good": [
-    "This is a test Good header. Tools -> Review Pop-Up Settings -> Header Texts, to set your own motivational quotes.", "This is another test to show you how header text lines should be separated", "and A Motha one"
+    "This is a test Good header. Tools -> Review Pop-Up Settings -> Header Texts, to set your own motivational quotes.",
+    "This is another test to show you how header text lines should be separated",
+    "and another one"
   ],
   "Header Texts_ Easy": [
-    "This is a test Easy header. Tools -> Review Pop-Up Settings -> Header Texts, to set your own motivational quotes.", "This is another test to show you how header text lines should be separated", "and A Motha one"
+    "This is a test Easy header. Tools -> Review Pop-Up Settings -> Header Texts, to set your own motivational quotes.",
+    "This is another test to show you how header text lines should be separated",
+    "and another one"
   ],
   "Window Titles_ Show Answer": [
-    "test Show Answer window title (Tools -> Review Pop-Up Settings -> Window Title Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
+    "test Show Answer window title (Tools -> Review Pop-Up Settings -> Window Title Texts, to set your own custom window title texts).",
+    "just another line to show you how lines shoule be separated"
   ],
   "Window Titles_ Again": [
-    "test Again window title (Tools -> Review Pop-Up Settings -> Window Title Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
+    "test Again window title (Tools -> Review Pop-Up Settings -> Window Title Texts, to set your own custom window title texts).",
+    "just another line to show you how lines shoule be separated"
   ],
   "Window Titles_ Hard": [
-    "test Hard window title (Tools -> Review Pop-Up Settings -> Window Title Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
+    "test Hard window title (Tools -> Review Pop-Up Settings -> Window Title Texts, to set your own custom window title texts).",
+    "just another line to show you how lines shoule be separated"
   ],
   "Window Titles_ Good": [
-    "test Good window title (Tools -> Review Pop-Up Settings -> Window Title Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
+    "test Good window title (Tools -> Review Pop-Up Settings -> Window Title Texts, to set your own custom window title texts).",
+    "just another line to show you how lines shoule be separated"
   ],
   "Window Titles_ Easy": [
-    "test Easy window title (Tools -> Review Pop-Up Settings -> Window Title Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
+    "test Easy window title (Tools -> Review Pop-Up Settings -> Window Title Texts, to set your own custom window title texts).",
+    "just another line to show you how lines shoule be separated"
   ],
   "Button Texts_ Show Answer": [
-    "test Show Answer Button Text (Tools -> Review Pop-Up Settings -> Button Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
+    "test Show Answer Button Text (Tools -> Review Pop-Up Settings -> Button Texts, to set your own custom window title texts).",
+    "just another line to show you how lines shoule be separated"
   ],
   "Button Texts_ Again": [
-    "test Again Button Text (Tools -> Review Pop-Up Settings -> Button Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
+    "test Again Button Text (Tools -> Review Pop-Up Settings -> Button Texts, to set your own custom window title texts).",
+    "just another line to show you how lines shoule be separated"
   ],
   "Button Texts_ Hard": [
-    "test Hard Button Text (Tools -> Review Pop-Up Settings -> Button Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
+    "test Hard Button Text (Tools -> Review Pop-Up Settings -> Button Texts, to set your own custom window title texts).",
+    "just another line to show you how lines shoule be separated"
   ],
   "Button Texts_ Good": [
-    "test Good Button Text (Tools -> Review Pop-Up Settings -> Button Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
+    "test Good Button Text (Tools -> Review Pop-Up Settings -> Button Texts, to set your own custom window title texts).",
+    "just another line to show you how lines shoule be separated"
   ],
   "Button Texts_ Easy": [
-    "test Easy Button Text (Tools -> Review Pop-Up Settings -> Button Texts, to set your own custom window title texts).", "just another line to show you how lines shoule be separated"
+    "test Easy Button Text (Tools -> Review Pop-Up Settings -> Button Texts, to set your own custom window title texts).",
+    "just another line to show you how lines shoule be separated"
   ]
 }

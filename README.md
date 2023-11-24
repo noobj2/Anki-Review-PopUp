@@ -22,7 +22,7 @@ You can use one of the following ways to install Anki Review Pop-Up:
 
 ### Using AnkiWeb
 
-The easiest and safest way to install ARBb is through Ankiweb. By installing ARBb through AnkiWeb you can automatically install the version of the add-on that is compatible with your version of Anki; As new version of ARBb may not be compatible with older versions of Anki.
+The easiest and safest way to install Anki Review Pop-Up is through Ankiweb. By installing Anki Review Pop-Up through AnkiWeb you can automatically install the version of the add-on that is compatible with your version of Anki; As new version of Anki Review Pop-Up may not be compatible with older versions of Anki.
 
 **To install using AnkiWeb follow these steps:**
 
@@ -39,7 +39,7 @@ The easiest and safest way to install ARBb is through Ankiweb. By installing ARB
 
 ### Using the .ankiaddon file
 
-This is also an easy way to install ARBb but it doesn't guarantee that the version of the add-on that you install will be compatible with your version of anki. If you're using older versions of Anki I don't recommend you install the add-on using the add-on file.
+This is also an easy way to install Anki Review Pop-Up but it doesn't guarantee that the version of the add-on that you install will be compatible with your version of anki. If you're using older versions of Anki I don't recommend you install the add-on using the add-on file.
 
 If you want to install and specific version or an older version of the add-on, I recommend you use the `*.ankiaddon` file.
 

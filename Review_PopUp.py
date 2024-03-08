@@ -26,7 +26,7 @@ def myPopUp(self, ease):
     show_random = random.choice(range((101 - popUp_Chance)))
     if show_random == 0 and popUp_Chance != 0:
         play_audio = config["Play Audio"]
-        play_videoGif = config["Play Video/Gif"]
+        play_videoGif = config["Play Video/GIF"]
         if self.state == "answer":
             if cnt == 3:
                 if ease == 1:

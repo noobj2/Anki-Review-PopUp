@@ -1,5 +1,17 @@
 <html>
     <div class="release">
+        <h1>v2.0.2</h1>
+        <ul>
+            <li>Minor bug fix</li>
+        </ul>
+    </div>
+    <div class="release">
+        <h1>v2.0.1</h1>
+        <ul>
+            <li>Fixed bug in config.json</li>
+        </ul>
+    </div>
+    <div class="release">
         <h1>v2.0.0</h1>
         <ul>
             <div style='color: red; margin-left: 12px;'>NOTE If you're coming from an earlier version of this add-on:</div> 

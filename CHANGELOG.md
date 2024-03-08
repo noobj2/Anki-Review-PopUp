@@ -1,5 +1,11 @@
 <html>
     <div class="release">
+        <h1>v2.0.3</h1>
+        <ul>
+            <li>Minor bug fix</li>
+        </ul>
+    </div>
+    <div class="release">
         <h1>v2.0.2</h1>
         <ul>
             <li>Minor bug fix</li>

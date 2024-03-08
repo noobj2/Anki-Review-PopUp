@@ -17,7 +17,7 @@ def refreshConfig():
     C_show_header = config["Show Header"]
     C_show_image = config["Show Image"]
     C_play_audio = config["Play Audio"]
-    C_play_videoGif = config["Play Video/Gif"]
+    C_play_videoGif = config["Play Video/GIF"]
     C_show_onAgain = config["Show on Again"]
     C_show_onHard = config["Show on Hard"]
     C_show_onGood = config["Show on Good"]
@@ -73,10 +73,10 @@ class Settings(QDialog):
         self.image_checkbox.setToolTip("""Shows a random image from images folder.
         You can add images by copying images to the \"images\" folder in add-on folder. open the folder by pressing \"Open Images Folder\" button down below.""")
         self.image_checkbox.stateChanged.connect(image_state_changed)
-        self.videoGif_checkbox = QCheckBox("Video/Gif")
+        self.videoGif_checkbox = QCheckBox("Video/GIF")
         self.videoGif_checkbox.setFixedWidth(102)
-        self.videoGif_checkbox.setToolTip("""Plays a Video/gif from the \"Video/Gif\" folder in add-on folder.
-        You can add videos/gifs by copying them to the \"Video/Gif\" folder in add-on folder. open the folder by pressing \"Open Video/Gif Folder\" button down below.""")
+        self.videoGif_checkbox.setToolTip("""Plays a Video/GIF from the \"Video/GIF\" folder in add-on folder.
+        You can add videos/gifs by copying them to the \"Video/GIF\" folder in add-on folder. open the folder by pressing \"Open Video/GIF Folder\" button down below.""")
         self.videoGif_checkbox.stateChanged.connect(video_gif_state_changed)
         self.audio_checkbox = QCheckBox("Audio")
         self.audio_checkbox.setFixedWidth(102)
@@ -148,7 +148,7 @@ class Settings(QDialog):
         imagesFolder_button.clicked.connect(lambda: self.open_file(images))
         audioFolder_button = QPushButton("Open Audio Folder")
         audioFolder_button.clicked.connect(lambda: self.open_file(audio))
-        videoGifFolder_button = QPushButton("Open Video/Gif Folder")
+        videoGifFolder_button = QPushButton("Open Video/GIF Folder")
         videoGifFolder_button.clicked.connect(lambda: self.open_file(video_gif))
         headerTexts_button = QPushButton("Header Texts")
         headerTexts_window = QDialog()
@@ -287,7 +287,7 @@ class Settings(QDialog):
         "Show Header": self.header_checkbox.isChecked(),
         "Show Image": self.image_checkbox.isChecked(),
         "Play Audio": self.audio_checkbox.isChecked(),
-        "Play Video/Gif": self.videoGif_checkbox.isChecked(),
+        "Play Video/GIF": self.videoGif_checkbox.isChecked(),
         "Show on Again": self.show_onAgain.isChecked(),
         "Show on Hard": self.show_onHard.isChecked(),
         "Show on Good": self.show_onGood.isChecked(),

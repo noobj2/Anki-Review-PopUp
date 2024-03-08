@@ -8,20 +8,23 @@ from aqt import mw
 import os
 import platform
 import subprocess
+import webbrowser
 from os.path import join, dirname
 
 def refreshConfig():
-    global C_show_header, C_show_image, C_play_audio, C_show_onAgain, C_show_onHard, C_show_onGood, C_show_onEasy, C_popUp_chance, C_SA_popUp_chance, C_headerText_fontStyle, C_headerText_fontSize, C_header_texts_SA, C_header_texts_again, C_header_texts_hard, C_header_texts_good, C_header_texts_easy, C_window_titles_SA, C_window_titles_again, C_window_titles_hard, C_window_titles_good, C_window_titles_easy, C_button_texts_SA, C_button_texts_again, C_button_texts_hard, C_button_texts_good, C_button_texts_easy
+    global C_show_header, C_show_image, C_play_audio, C_play_videoGif, C_show_onAgain, C_show_onHard, C_show_onGood, C_show_onEasy, C_popUp_chance, C_SA_popUp_chance, C_popUp_type, C_headerText_fontStyle, C_headerText_fontSize, C_header_texts_SA, C_header_texts_again, C_header_texts_hard, C_header_texts_good, C_header_texts_easy
     config = mw.addonManager.getConfig(__name__)
     C_show_header = config["Show Header"]
     C_show_image = config["Show Image"]
     C_play_audio = config["Play Audio"]
+    C_play_videoGif = config["Play Video/Gif"]
     C_show_onAgain = config["Show on Again"]
     C_show_onHard = config["Show on Hard"]
     C_show_onGood = config["Show on Good"]
     C_show_onEasy = config["Show on Easy"]
     C_popUp_chance = config["Pop-Up Chance"]
     C_SA_popUp_chance = config["Show Answer Pop-Up Chance"]
+    C_popUp_type = config["Pop-Up Type"]
     C_headerText_fontStyle = config["Header Text Font Style"]
     C_headerText_fontSize = config["Header Text Font Size"]
     C_header_texts_SA = config["Header Texts_ Show Answer"]
@@ -29,16 +32,6 @@ def refreshConfig():
     C_header_texts_hard = config["Header Texts_ Hard"]
     C_header_texts_good = config["Header Texts_ Good"]
     C_header_texts_easy = config["Header Texts_ Easy"]
-    C_window_titles_SA = config["Window Titles_ Show Answer"]
-    C_window_titles_again = config["Window Titles_ Again"]
-    C_window_titles_hard = config["Window Titles_ Hard"]
-    C_window_titles_good = config["Window Titles_ Good"]
-    C_window_titles_easy = config["Window Titles_ Easy"]
-    C_button_texts_SA = config["Button Texts_ Show Answer"]
-    C_button_texts_again = config["Button Texts_ Again"]
-    C_button_texts_hard = config["Button Texts_ Hard"]
-    C_button_texts_good = config["Button Texts_ Good"]
-    C_button_texts_easy = config["Button Texts_ Easy"]
 
 class Settings(QDialog):
     refreshConfig()
@@ -58,22 +51,41 @@ class Settings(QDialog):
     def settings(self):
         addon_path = dirname(__file__)
         images = join(addon_path, 'user_files/images')
-        audio = join(addon_path, 'user_files/audio_video')
+        audio = join(addon_path, 'user_files/audio')
+        video_gif = join(addon_path, 'user_files/video_gif')
+        def video_gif_state_changed():
+            if self.videoGif_checkbox.isChecked():
+                self.image_checkbox.setChecked(False)
+                self.header_checkbox.setChecked(False)
+        def image_state_changed():
+            if self.image_checkbox.isChecked():
+                self.videoGif_checkbox.setChecked(False)
+        def header_state_changed():
+            if self.header_checkbox.isChecked():
+                self.videoGif_checkbox.setChecked(False)
         self.header_checkbox = QCheckBox("Header")
         self.header_checkbox.setFixedWidth(102)
         self.header_checkbox.setToolTip("""Shows a random line in \"Header Texts\" list.
         You can edit the list by pressing the \"Header Texts\" button down belw.""")
+        self.header_checkbox.stateChanged.connect(header_state_changed)
         self.image_checkbox = QCheckBox("Image")
         self.image_checkbox.setFixedWidth(102)
         self.image_checkbox.setToolTip("""Shows a random image from images folder.
-        You can add images by copying images to the \"images\" foler in add-on folder. open the folder by pressing \"Open Images Folder\" button down below.""")
-        self.audio_checkbox = QCheckBox("Audio/Video")
+        You can add images by copying images to the \"images\" folder in add-on folder. open the folder by pressing \"Open Images Folder\" button down below.""")
+        self.image_checkbox.stateChanged.connect(image_state_changed)
+        self.videoGif_checkbox = QCheckBox("Video/Gif")
+        self.videoGif_checkbox.setFixedWidth(102)
+        self.videoGif_checkbox.setToolTip("""Plays a Video/gif from the \"Video/Gif\" folder in add-on folder.
+        You can add videos/gifs by copying them to the \"Video/Gif\" folder in add-on folder. open the folder by pressing \"Open Video/Gif Folder\" button down below.""")
+        self.videoGif_checkbox.stateChanged.connect(video_gif_state_changed)
+        self.audio_checkbox = QCheckBox("Audio")
         self.audio_checkbox.setFixedWidth(102)
         self.audio_checkbox.setToolTip("""Plays a random audio from \"audio\" folder in add-on folder.
         You can add audio by copying them to the \"audio\" folder in add-on folder. open the folder by pressing \"Open Audio Folder\" button down below.""")
         line1 = QHBoxLayout()
         line1.addWidget(self.header_checkbox)
         line1.addWidget(self.image_checkbox)
+        line1.addWidget(self.videoGif_checkbox)
         line1.addWidget(self.audio_checkbox)
         line1.addStretch()
         self.show_onAgain = QCheckBox("Again")
@@ -105,6 +117,15 @@ class Settings(QDialog):
         SA_view_chance_holder = QHBoxLayout()
         SA_view_chance_holder.addWidget(SA_view_chance_label)
         SA_view_chance_holder.addWidget(self.SA_view_chance)
+        popUp_type_label = QLabel("Pop-Up Type")
+        popUp_type_label.setToolTip("Changes the type of pop-up window.")
+        popUp_type_label.setFixedWidth(210)
+        self.popUp_type = QComboBox()
+        self.popUp_type.setFixedWidth(210)
+        self.popUp_type.addItems(["Random", "Ordered"])
+        popUp_type_holder = QHBoxLayout()
+        popUp_type_holder.addWidget(popUp_type_label)
+        popUp_type_holder.addWidget(self.popUp_type)
         headerTextSize_label = QLabel("Header Font Size")
         headerTextSize_label.setToolTip("Changes font size for the header text.")
         headerTextSize_label.setFixedWidth(210)
@@ -125,8 +146,10 @@ class Settings(QDialog):
         header_fontStyle_holder.addWidget(self.headerText_fontStyle)
         imagesFolder_button = QPushButton("Open Images Folder")
         imagesFolder_button.clicked.connect(lambda: self.open_file(images))
-        audioFolder_button = QPushButton("Open Audio/Video Folder")
+        audioFolder_button = QPushButton("Open Audio Folder")
         audioFolder_button.clicked.connect(lambda: self.open_file(audio))
+        videoGifFolder_button = QPushButton("Open Video/Gif Folder")
+        videoGifFolder_button.clicked.connect(lambda: self.open_file(video_gif))
         headerTexts_button = QPushButton("Header Texts")
         headerTexts_window = QDialog()
         headerTexts_window.setWindowIcon(QIcon(addon_path + "/icon.png"))
@@ -175,108 +198,32 @@ class Settings(QDialog):
         headers_vbox.addWidget(header_tabs)
         headers_vbox.addWidget(buttons)
         headerTexts_window.setLayout(headers_vbox)
-
         headerTexts_button.clicked.connect(lambda: headerTexts_window.exec())
-        windowTtitles_button = QPushButton("Window Title Texts")
-        windowTitles_window = QDialog()
-        windowTitles_window.setWindowIcon(QIcon(addon_path + "/icon.png"))
-        windowTitles_window.setWindowTitle("Window Title Texts")
 
-        windowTitle_tabs = QTabWidget()
-        self.SA_windowTitles_textEditor = QPlainTextEdit()
-        self.SA_windowTitles_textEditor.setWordWrapMode(QTextOption.WrapMode.NoWrap)
-        SA_layout = QVBoxLayout()
-        SA_layout.addWidget(self.SA_windowTitles_textEditor)
-        SA_tab = QWidget()
-        SA_tab.setLayout(SA_layout)
-        windowTitle_tabs.addTab(SA_tab, "Show Answer")
-        self.again_windowTitles_textEditor = QPlainTextEdit()
-        self.again_windowTitles_textEditor.setWordWrapMode(QTextOption.WrapMode.NoWrap)
-        again_layout = QVBoxLayout()
-        again_layout.addWidget(self.again_windowTitles_textEditor)
-        again_tab = QWidget()
-        again_tab.setLayout(again_layout)
-        windowTitle_tabs.addTab(again_tab, "Again")
-        self.hard_windowTitles_textEditor = QPlainTextEdit()
-        self.hard_windowTitles_textEditor.setWordWrapMode(QTextOption.WrapMode.NoWrap)
-        hard_layout = QVBoxLayout()
-        hard_layout.addWidget(self.hard_windowTitles_textEditor)
-        hard_tab = QWidget()
-        hard_tab.setLayout(hard_layout)
-        windowTitle_tabs.addTab(hard_tab, "Hard")
-        self.good_windowTitles_textEditor = QPlainTextEdit()
-        self.good_windowTitles_textEditor.setWordWrapMode(QTextOption.WrapMode.NoWrap)
-        good_layout = QVBoxLayout()
-        good_layout.addWidget(self.good_windowTitles_textEditor)
-        good_tab = QWidget()
-        good_tab.setLayout(good_layout)
-        windowTitle_tabs.addTab(good_tab, "Good")
-        self.easy_windowTitles_textEditor = QPlainTextEdit()
-        self.easy_windowTitles_textEditor.setWordWrapMode(QTextOption.WrapMode.NoWrap)
-        easy_layout = QVBoxLayout()
-        easy_layout.addWidget(self.easy_windowTitles_textEditor)
-        easy_tab = QWidget()
-        easy_tab.setLayout(easy_layout)
-        windowTitle_tabs.addTab(easy_tab, "Easy")
-        windowTitles_vbox = QVBoxLayout()
-        buttons = QDialogButtonBox()
-        buttons.setStandardButtons(QDialogButtonBox.StandardButton.Close)
-        buttons.rejected.connect(windowTitles_window.close)
-        windowTitles_vbox.addWidget(windowTitle_tabs)
-        windowTitles_vbox.addWidget(buttons)
-        windowTitles_window.setLayout(windowTitles_vbox)
-
-        windowTtitles_button.clicked.connect(lambda: windowTitles_window.exec())
-        buttonTexts_button = QPushButton("Button Texts")
-        buttonTexts_window = QDialog()
-        buttonTexts_window.setWindowIcon(QIcon(addon_path + "/icon.png"))
-        buttonTexts_window.setWindowTitle("Button Texts")
-
-        button_tabs = QTabWidget()
-        self.SA_buttonTexts_textEditor = QPlainTextEdit()
-        self.SA_buttonTexts_textEditor.setWordWrapMode(QTextOption.WrapMode.NoWrap)
-        SA_layout = QVBoxLayout()
-        SA_layout.addWidget(self.SA_buttonTexts_textEditor)
-        SA_tab = QWidget()
-        SA_tab.setLayout(SA_layout)
-        button_tabs.addTab(SA_tab, "Show Answer")
-        self.again_buttonTexts_textEditor = QPlainTextEdit()
-        self.again_buttonTexts_textEditor.setWordWrapMode(QTextOption.WrapMode.NoWrap)
-        again_layout = QVBoxLayout()
-        again_layout.addWidget(self.again_buttonTexts_textEditor)
-        again_tab = QWidget()
-        again_tab.setLayout(again_layout)
-        button_tabs.addTab(again_tab, "Again")
-        self.hard_buttonTexts_textEditor = QPlainTextEdit()
-        self.hard_buttonTexts_textEditor.setWordWrapMode(QTextOption.WrapMode.NoWrap)
-        hard_layout = QVBoxLayout()
-        hard_layout.addWidget(self.hard_buttonTexts_textEditor)
-        hard_tab = QWidget()
-        hard_tab.setLayout(hard_layout)
-        button_tabs.addTab(hard_tab, "Hard")
-        self.good_buttonTexts_textEditor = QPlainTextEdit()
-        self.good_buttonTexts_textEditor.setWordWrapMode(QTextOption.WrapMode.NoWrap)
-        good_layout = QVBoxLayout()
-        good_layout.addWidget(self.good_buttonTexts_textEditor)
-        good_tab = QWidget()
-        good_tab.setLayout(good_layout)
-        button_tabs.addTab(good_tab, "Good")
-        self.easy_buttonTexts_textEditor = QPlainTextEdit()
-        self.easy_buttonTexts_textEditor.setWordWrapMode(QTextOption.WrapMode.NoWrap)
-        easy_layout = QVBoxLayout()
-        easy_layout.addWidget(self.easy_buttonTexts_textEditor)
-        easy_tab = QWidget()
-        easy_tab.setLayout(easy_layout)
-        button_tabs.addTab(easy_tab, "Easy")
-        buttons_vbox = QVBoxLayout()
-        buttons = QDialogButtonBox()
-        buttons.setStandardButtons(QDialogButtonBox.StandardButton.Close)
-        buttons.rejected.connect(buttonTexts_window.close)
-        buttons_vbox.addWidget(button_tabs)
-        buttons_vbox.addWidget(buttons)
-        buttonTexts_window.setLayout(buttons_vbox)
-
-        buttonTexts_button.clicked.connect(lambda: buttonTexts_window.exec())
+        contactMe_button = QPushButton("Contant Me")
+        contactMe_button.clicked.connect(lambda: webbrowser.open('https://noobj2.t.me'))
+        reportIssue_button = QPushButton("Report an Issue")
+        reportIssue_button.clicked.connect(lambda: webbrowser.open('https://github.com/noobj2/Anki-Review-PopUp/issues/new'))
+        likeAddon_button = QPushButton("Like this Add-on")
+        likeAddon_button.clicked.connect(lambda: webbrowser.open('https://ankiweb.net/shared/review/976516370'))
+        contact_report_line = QHBoxLayout()
+        contact_report_line.addWidget(contactMe_button)
+        contact_report_line.addWidget(likeAddon_button)
+        contact_report_line.addWidget(reportIssue_button)
+        
+        changeLog_window = QDialog()
+        changeLog_window.setWindowFlags(Qt.WindowType.WindowCloseButtonHint | Qt.WindowType.WindowMaximizeButtonHint | Qt.WindowType.WindowMinimizeButtonHint)
+        changeLog_window.setWindowTitle("Changelog")
+        changeLog_button = QPushButton("Show Changelog")
+        self.changeLog_webView = QWebEngineView()
+        self.loadChangeLog()
+        changeLog_layout = QVBoxLayout()
+        changeLog_layout.addWidget(self.changeLog_webView)
+        changeLog_window.setLayout(changeLog_layout)
+        changeLog_button.clicked.connect(lambda: changeLog_window.exec())
+        changelog_like_line = QHBoxLayout()
+        changelog_like_line.addWidget(changeLog_button)
+        
         apply_button = QPushButton("Apply")
         apply_button.clicked.connect(self.onApply)
         apply_button.clicked.connect(lambda: showInfo("<div style='color: red;\
@@ -292,14 +239,22 @@ class Settings(QDialog):
         self.layout.addLayout(line2)
         self.layout.addLayout(viewChance_holder)
         self.layout.addLayout(SA_view_chance_holder)
+        self.layout.addLayout(popUp_type_holder)
         self.layout.addLayout(header_fontStyle_holder)
         self.layout.addLayout(header_fontSize_holder)
         self.layout.addWidget(imagesFolder_button)
         self.layout.addWidget(audioFolder_button)
+        self.layout.addWidget(videoGifFolder_button)
         self.layout.addWidget(headerTexts_button)
-        self.layout.addWidget(windowTtitles_button)
-        self.layout.addWidget(buttonTexts_button)
+        self.layout.addLayout(contact_report_line)
+        self.layout.addLayout(changelog_like_line)
         self.layout.addLayout(bottom_line)
+    def loadChangeLog(self):
+        addon_path = dirname(__file__)
+        file = "{}/changelog.html".format(addon_path)
+        with open(file, 'r') as f:
+            html = f.read()
+            self.changeLog_webView.setHtml(html)
     def loadCurrent(self):
         if C_show_header:
             self.header_checkbox.setChecked(True)
@@ -307,6 +262,8 @@ class Settings(QDialog):
             self.image_checkbox.setChecked(True)
         if C_play_audio:
             self.audio_checkbox.setChecked(True)
+        if C_play_videoGif:
+            self.videoGif_checkbox.setChecked(True)
         if C_show_onAgain:
             self.show_onAgain.setChecked(True)
         if C_show_onHard:
@@ -317,6 +274,7 @@ class Settings(QDialog):
             self.show_onEasy.setChecked(True)
         self.view_chance.setValue(C_popUp_chance)
         self.SA_view_chance.setValue(C_SA_popUp_chance)
+        self.popUp_type.setCurrentIndex(C_popUp_type)
         self.headerText_fontStyle.setCurrentFont(QFont(C_headerText_fontStyle))
         self.headerText_fontSize.setValue(C_headerText_fontSize)
         self.SA_headerTexts_textEditor.setPlainText("{}".format("\n".join(C_header_texts_SA)))
@@ -324,44 +282,26 @@ class Settings(QDialog):
         self.hard_headerTexts_textEditor.setPlainText("{}".format("\n".join(C_header_texts_hard)))
         self.good_headerTexts_textEditor.setPlainText("{}".format("\n".join(C_header_texts_good)))
         self.easy_headerTexts_textEditor.setPlainText("{}".format("\n".join(C_header_texts_easy)))
-        self.SA_windowTitles_textEditor.setPlainText("{}".format("\n".join(C_window_titles_SA)))
-        self.again_windowTitles_textEditor.setPlainText("{}".format("\n".join(C_window_titles_again)))
-        self.hard_windowTitles_textEditor.setPlainText("{}".format("\n".join(C_window_titles_hard)))
-        self.good_windowTitles_textEditor.setPlainText("{}".format("\n".join(C_window_titles_good)))
-        self.easy_windowTitles_textEditor.setPlainText("{}".format("\n".join(C_window_titles_easy)))
-        self.SA_buttonTexts_textEditor.setPlainText("{}".format("\n".join(C_button_texts_SA)))
-        self.again_buttonTexts_textEditor.setPlainText("{}".format("\n".join(C_button_texts_again)))
-        self.hard_buttonTexts_textEditor.setPlainText("{}".format("\n".join(C_button_texts_hard)))
-        self.good_buttonTexts_textEditor.setPlainText("{}".format("\n".join(C_button_texts_good)))
-        self.easy_buttonTexts_textEditor.setPlainText("{}".format("\n".join(C_button_texts_easy)))
     def onApply(self):
         conf = {
         "Show Header": self.header_checkbox.isChecked(),
         "Show Image": self.image_checkbox.isChecked(),
         "Play Audio": self.audio_checkbox.isChecked(),
+        "Play Video/Gif": self.videoGif_checkbox.isChecked(),
         "Show on Again": self.show_onAgain.isChecked(),
         "Show on Hard": self.show_onHard.isChecked(),
         "Show on Good": self.show_onGood.isChecked(),
         "Show on Easy": self.show_onEasy.isChecked(),
         "Pop-Up Chance": self.view_chance.value(),
         "Show Answer Pop-Up Chance": self.SA_view_chance.value(),
+        "Pop-Up Type": self.popUp_type.currentIndex(),
         "Header Text Font Style": self.headerText_fontStyle.currentFont().family(),
         "Header Text Font Size": self.headerText_fontSize.value(),
         "Header Texts_ Show Answer": self.SA_headerTexts_textEditor.toPlainText().split("\n"),
         "Header Texts_ Again": self.again_headerTexts_textEditor.toPlainText().split("\n"),
         "Header Texts_ Hard": self.hard_headerTexts_textEditor.toPlainText().split("\n"),
         "Header Texts_ Good": self.good_headerTexts_textEditor.toPlainText().split("\n"),
-        "Header Texts_ Easy": self.easy_headerTexts_textEditor.toPlainText().split("\n"),
-        "Window Titles_ Show Answer": self.SA_windowTitles_textEditor.toPlainText().split("\n"),
-        "Window Titles_ Again": self.again_windowTitles_textEditor.toPlainText().split("\n"),
-        "Window Titles_ Hard": self.hard_windowTitles_textEditor.toPlainText().split("\n"),
-        "Window Titles_ Good": self.good_windowTitles_textEditor.toPlainText().split("\n"),
-        "Window Titles_ Easy": self.easy_windowTitles_textEditor.toPlainText().split("\n"),
-        "Button Texts_ Show Answer": self.SA_buttonTexts_textEditor.toPlainText().split("\n"),
-        "Button Texts_ Again": self.again_buttonTexts_textEditor.toPlainText().split("\n"),
-        "Button Texts_ Hard": self.hard_buttonTexts_textEditor.toPlainText().split("\n"),
-        "Button Texts_ Good": self.good_buttonTexts_textEditor.toPlainText().split("\n"),
-        "Button Texts_ Easy": self.easy_buttonTexts_textEditor.toPlainText().split("\n")
+        "Header Texts_ Easy": self.easy_headerTexts_textEditor.toPlainText().split("\n")
         }
         mw.addonManager.writeConfig(__name__, conf)
         refreshConfig()

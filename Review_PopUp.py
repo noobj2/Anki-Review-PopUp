@@ -17,8 +17,6 @@ config = mw.addonManager.getConfig(__name__)
 
 def _play_tags(self, tags):
     self._enqueued = tags[:]
-    if self.interrupt_current_audio and False:
-        self._stop_if_playing()
     self._play_next_if_idle()
 
 
@@ -28,6 +26,7 @@ def myPopUp(self, ease):
     show_random = random.choice(range((101 - popUp_Chance)))
     if show_random == 0 and popUp_Chance != 0:
         play_audio = config["Play Audio"]
+        play_videoGif = config["Play Video/Gif"]
         if self.state == "answer":
             if cnt == 3:
                 if ease == 1:
@@ -45,14 +44,22 @@ def myPopUp(self, ease):
                     folder = 'good'
                 else:
                     folder = 'easy'
-            audio_folder = join(addon_path, 'user_files/audio_video', folder)
-            audioName_list = os.listdir(audio_folder)
-            audio_name = '/{}'.format(random.choice(audioName_list))
-            audio_path = audio_folder + audio_name
             if play_audio:
+                audio_folder = join(addon_path, 'user_files/audio', folder)
+                audioName_list = os.listdir(audio_folder)
+                audio_name = '/{}'.format(random.choice(audioName_list))
+                audio_path = audio_folder + audio_name
                 AVPlayer.play_tags=_play_tags
                 clearAudioQueue()
                 play(audio_path)
+            if play_videoGif:
+                video_folder = join(addon_path, 'user_files/video_gif', folder)
+                videoName_list = os.listdir(video_folder)
+                video_name = '/{}'.format(random.choice(videoName_list))
+                video_path = video_folder + video_name
+                AVPlayer.play_tags=_play_tags
+                clearAudioQueue()
+                play(video_path)
             show_popUp(cnt, ease)
 
 def show_popUp(cnt, ease):
@@ -64,76 +71,51 @@ def show_popUp(cnt, ease):
     header_list_hard = config["Header Texts_ Hard"]
     header_list_good = config["Header Texts_ Good"]
     header_list_easy = config["Header Texts_ Easy"]
-    title_list_again = config["Window Titles_ Again"]
-    title_list_hard = config["Window Titles_ Hard"]
-    title_list_good = config["Window Titles_ Good"]
-    title_list_easy = config["Window Titles_ Easy"]
-    button_list_again = config["Button Texts_ Again"]
-    button_list_hard = config["Button Texts_ Hard"]
-    button_list_good = config["Button Texts_ Good"]
-    button_list_easy = config["Button Texts_ Easy"]
     if cnt == 3:
         if ease == 1:
             folder = 'again'
             header_text = random.choice(header_list_again)
-            title_text = random.choice(title_list_again)
-            button_text = random.choice(button_list_again)
         elif ease == 2:
             folder = 'good'
             header_text = random.choice(header_list_good)
-            title_text = random.choice(title_list_good)
-            button_text = random.choice(button_list_good)
         elif ease == 3:
             folder = 'easy'
             header_text = random.choice(header_list_easy)
-            title_text = random.choice(title_list_easy)
-            button_text = random.choice(button_list_easy)
         else:
             folder = 'again'
             header_text = "cnt: {} | ease: {}".format(cnt, ease)
-            title_text = "Wrong Ease."
-            button_text = "Ok"
     else:
         if ease == 1:
             folder = 'again'
             header_text = random.choice(header_list_again)
-            title_text = random.choice(title_list_again)
-            button_text = random.choice(button_list_again)
         elif ease == 2:
             folder = 'hard'
             header_text = random.choice(header_list_hard)
-            title_text = random.choice(title_list_hard)
-            button_text = random.choice(button_list_hard)
         elif ease == 3:
             folder = 'good'
             header_text = random.choice(header_list_good)
-            title_text = random.choice(title_list_good)
-            button_text = random.choice(button_list_good)
         elif ease == 4:
             folder = 'easy'
             header_text = random.choice(header_list_easy)
-            title_text = random.choice(title_list_easy)
-            button_text = random.choice(button_list_easy)
         else:
             folder = 'again'
             header_text = "cnt: {} | ease: {}".format(cnt, ease)
-            title_text = "Wrong Ease."
-            button_text = "Ok"
     image_folder = join(addon_path, 'user_files/images', folder)
     imageName_list = os.listdir(image_folder)
     image_name = '/{}'.format(random.choice(imageName_list))
 
     window = QDialog(mw)
-    window.setWindowTitle(title_text)
     window.setWindowIcon(QIcon(join(addon_path, 'user_files/images') + "/icon.png"))
     header = QLabel()
     header.setAlignment(Qt.AlignmentFlag.AlignCenter)
     header.setText("<div style='font-size: {}px; font-family: {};'> {} </div>".format(headerText_fontSize, headerText_fontStyle, header_text))
     image = QLabel()
+    pixmap = QPixmap(image_folder + image_name)
+    max_height = min(pixmap.height(), 1024)
+    max_width = min(pixmap.width(), 1024)
+    picture = pixmap.scaled(max_width, max_height, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
     image.setAlignment(Qt.AlignmentFlag.AlignCenter)
-    image.setText("<img src='{}' style='max-height: 450px; max-width: 450px;'>".format(image_folder + image_name))
-    button = QPushButton(button_text)
-    button.clicked.connect(lambda: window.hide())
+    image.setPixmap(picture)
     layout = QVBoxLayout()
     if show_header:
         layout.addWidget(header)
@@ -143,7 +125,6 @@ def show_popUp(cnt, ease):
     show_onHard = config["Show on Hard"]
     show_onGood = config["Show on Good"]
     show_onEasy = config["Show on Easy"]
-    layout.addWidget(button)
     window.setLayout(layout)
     if not show_image and not show_header:
         return

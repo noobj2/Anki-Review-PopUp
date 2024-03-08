@@ -108,4 +108,6 @@ By using this add-on, users can enhance their Anki flashcard experience with cus
 
 - You can improve the add-on or add new features or fix bugs if you want. Any pull request will be much appreciated.
 
-- You can also rate this add-on [here](https://ankiweb.net/shared/review/976516370) if you like the add-on.
+- You can rate this add-on [here](https://ankiweb.net/shared/review/976516370) if you like the add-on.
+
+- You can also support the development of this add-on by donating [here](https://nowpayments.io/donation?api_key=3YB7ADS-0VC440H-PRB3NZC-YRNFE47&source=lk_donation&medium=referral) and [here](https://www.buymeacoffee.com/noobj2).
